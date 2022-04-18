@@ -15,6 +15,9 @@ import {MatSelectModule} from "@angular/material/select";
 import { AfficherComponent } from './afficher/afficher.component';
 import {MatCardModule} from "@angular/material/card";
 import { GrapheComponent } from './afficher/graphe/graphe.component';
+import { AjouterComponent } from './ajouter/ajouter.component';
+import {MatButtonModule} from "@angular/material/button";
+import {MatInputModule} from "@angular/material/input";
 
 @NgModule({
   declarations: [
@@ -22,20 +25,23 @@ import { GrapheComponent } from './afficher/graphe/graphe.component';
     TableComponent,
     DashboardComponent,
     AfficherComponent,
-    GrapheComponent
+    GrapheComponent,
+    AjouterComponent
   ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        MatTableModule,
-        MatPaginatorModule,
-        MatSortModule,
-        MatToolbarModule,
-        MatIconModule,
-        MatFormFieldModule,
-        MatSelectModule,
-        MatCardModule
-    ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatCardModule,
+    MatButtonModule,
+    MatInputModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

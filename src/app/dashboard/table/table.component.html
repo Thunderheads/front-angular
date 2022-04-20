@@ -29,12 +29,9 @@
               <mat-icon class="icon" *ngIf="source.os.nom ==='android'">android</mat-icon>
               <mat-icon *ngIf=" source.os.nom ==='iOS'">apple</mat-icon>
           </div>
-
-
         </td>
-
-
       </ng-container>
+
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

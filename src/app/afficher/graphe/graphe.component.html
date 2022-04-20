@@ -1,5 +1,12 @@
 <div class="row mt-5">
+  <section>
+    <div class="row align-items-center">
+      <div class="col-2"><button mat-flat-button color="primary" (click)="changeToWeek()">1 Semaine</button></div>
+      <div class="col-2"><button mat-flat-button color="primary" (click)="changeToMonth()" >1 Mois</button></div>
+      <div class="col-2"><button mat-flat-button color="primary" (click)="changeToThreeMonth()">3 Mois</button></div>
 
+    </div>
+  </section>
   <div class="col"><canvas id="my_first_chart" ></canvas></div>
 </div>
 

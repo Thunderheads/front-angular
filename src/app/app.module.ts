@@ -1,6 +1,7 @@
-import { NgModule } from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
+import localeFr from '@angular/common/locales/fr';
+registerLocaleData(localeFr);
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TableComponent } from './dashboard/table/table.component';
@@ -19,6 +20,7 @@ import { AjouterComponent } from './ajouter/ajouter.component';
 import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from "@angular/material/input";
 import {HttpClientModule} from "@angular/common/http";
+import {registerLocaleData} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -44,7 +46,7 @@ import {HttpClientModule} from "@angular/common/http";
     MatInputModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [{provide: LOCALE_ID, useValue: 'fr-FR'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -3,6 +3,8 @@ import {Chart, registerables} from "chart.js";
 import {ApplicationData} from "../../../service/api/application.data";
 import {MatTableDataSource} from "@angular/material/table";
 import {IApplication} from "../../../modeleInterface/IApplication";
+import {IData} from "../../../modeleInterface/IData";
+import {formatDate} from "@angular/common";
 
 @Component({
   selector: 'app-graphe',
@@ -13,7 +15,9 @@ export class GrapheComponent implements OnInit {
 
   chartRating: any;
   chartVote: any;
-  data ?: IApplication;
+  data !: IApplication;
+  dataStorage : IData[] = [];
+
 
   constructor(private appData: ApplicationData) {
   }
@@ -21,18 +25,18 @@ export class GrapheComponent implements OnInit {
   ngOnInit(): void {
     this.chartRating = document.getElementById('my_first_chart');
     this.chartVote = document.getElementById('my_second_chart');
-    const url = 'http://localhost/test/public/api/application/' + '25';
+    const url = 'http://localhost/test/public/api/application/' + '24';
     this.appData.get(url).subscribe(
       data => {
         this.data = data;
-
-        let i=0;
         for(let myData of data.datas){
-          if(Math.floor((new Date(Date.now()).getDate() - new Date(myData.dateCollect).getTime()) / 1000 / 60 / 60 / 24)>7){
-            i++;
+          //si la date du jour - date collect est en dessous de 7 jours on stocke les données qu'on affichera plus tard
+          if(Math.floor((new Date(Date.now()).getTime() - new Date(myData.dateCollect).getTime()) / 1000 / 60 / 60 / 24)<=7){
+            // on ajoute dans une liste les données concernant ces jours au format IData
+            this.dataStorage?.push(myData);
           }
-          //console.log(data.dataCollect.getDate())
         }
+
         //pour récuperer la date du jour new Date(Date.now()).getDate()
         Chart.register(...registerables);
         this.loadChartRating();
@@ -44,7 +48,6 @@ export class GrapheComponent implements OnInit {
       }
     )
 
-
   }
 
   private loadChartRating() {
@@ -52,14 +55,14 @@ export class GrapheComponent implements OnInit {
       type: 'line',
       data: {
         datasets: [{
-          data: [4.6, 4.2, 4.7, 5, 4.1, 4.45, 3, 2, 4.5, 1, 0, 5],
+          data: this.listeRating(this.dataStorage),
           label: "Notes",
           backgroundColor: "blue",
           tension: 0.2,
           borderColor: "blue"
 
         }],
-        labels: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"]
+        labels: this.listeDate(this.dataStorage)
       },
       options: {
         responsive: true,
@@ -72,22 +75,23 @@ export class GrapheComponent implements OnInit {
       }
 
     })
+
   }
 
   private loadChartVote() {
-
     new Chart(this.chartVote, {
-      type: 'line',
+      type: 'bar',
       data: {
         datasets: [{
-          data: [25565, 54554, 54545, 69888, 69888, 69999, 78000, 79000, 80000, 90000, 91000, 92000],
+          data: this.listeVote(this.dataStorage),
           label: "Avis",
-          backgroundColor: "red",
-          tension: 0.2,
-          borderColor: "red"
+          backgroundColor: "blue",
+
+
+
 
         }],
-        labels: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"]
+        labels: this.listeDate(this.dataStorage),
       },
       options: {
         responsive: true,
@@ -102,4 +106,143 @@ export class GrapheComponent implements OnInit {
     })
   }
 
+  /**
+   * Fonction en charge d'extraire la liste des dates associées aux données
+   * @param lstDatas
+   * @return string[]
+   */
+  public listeDate(lstDatas : IData[]) : string[]{
+    let lstDate : string[]=[];
+
+    for (let data of lstDatas){
+      lstDate.push(formatDate(data.dateCollect,'dd/MM/yyyy', 'fr-FR'));
+
+    }
+    return lstDate
+
+  }
+
+  /**
+   * Fonction en charge d'extraire la liste des notes associées aux données
+   * @param lstRating
+   * @return number[]
+   */
+  public listeRating(lstDatas : IData[]) : number[]{
+    let lstRating : number[]=[];
+
+    for (let data of lstDatas){
+      lstRating.push(data.rating);
+    }
+    return lstRating;
+  }
+
+  /**
+   * Fonction en charge d'extraire la liste des avis associées aux données
+   * @param lstVote
+   * @return number[]
+   */
+  public listeVote(lstDatas : IData[]) : number[]{
+    let lstVote : number[]=[];
+
+    for (let data of lstDatas){
+      lstVote.push(data.vote);
+    }
+    return lstVote;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /// A FACTORISER !!!!!!
+  changeToWeek() {
+    let chartStatus = Chart.getChart("my_first_chart");
+    if (chartStatus != undefined) {
+      chartStatus.destroy();
+    }
+    let chartStatus2 = Chart.getChart("my_second_chart");
+    if (chartStatus2 != undefined) {
+      chartStatus2.destroy();
+    }
+
+    this.chartRating = document.getElementById('my_first_chart');
+    this.chartVote = document.getElementById('my_second_chart');
+
+    this.dataStorage = [];
+    for(let myData of this.data.datas){
+      //si la date du jour - date collect est en dessous de 7 jours on stocke les données qu'on affichera plus tard
+      if(Math.floor((new Date(Date.now()).getTime() - new Date(myData.dateCollect).getTime()) / 1000 / 60 / 60 / 24)<=7){
+        // on ajoute dans une liste les données concernant ces jours au format IData
+        this.dataStorage?.push(myData);
+      }
+    }
+    this.loadChartVote();
+    this.loadChartRating();
+  }
+
+  changeToMonth() {
+    let chartStatus = Chart.getChart("my_first_chart");
+    if (chartStatus != undefined) {
+      chartStatus.destroy();
+    }
+    let chartStatus2 = Chart.getChart("my_second_chart");
+    if (chartStatus2 != undefined) {
+      chartStatus2.destroy();
+    }
+
+    this.chartRating = document.getElementById('my_first_chart');
+    this.chartVote = document.getElementById('my_second_chart');
+    this.dataStorage = [];
+    for(let myData of this.data.datas){
+      //si la date du jour - date collect est en dessous de 7 jours on stocke les données qu'on affichera plus tard
+      if(Math.floor((new Date(Date.now()).getTime() - new Date(myData.dateCollect).getTime()) / 1000 / 60 / 60 / 24)<=31){
+        // on ajoute dans une liste les données concernant ces jours au format IData
+        this.dataStorage?.push(myData);
+      }
+    }
+    this.loadChartVote();
+    this.loadChartRating();
+  }
+
+  changeToThreeMonth() {
+
+    let chartStatus = Chart.getChart("my_first_chart");
+    if (chartStatus != undefined) {
+      chartStatus.destroy();
+    }
+    let chartStatus2 = Chart.getChart("my_second_chart");
+    if (chartStatus2 != undefined) {
+      chartStatus2.destroy();
+    }
+
+    this.chartRating = document.getElementById('my_first_chart');
+    this.chartVote = document.getElementById('my_second_chart');
+
+
+    this.dataStorage = [];
+    for(let myData of this.data.datas){
+      //si la date du jour - date collect est en dessous de 7 jours on stocke les données qu'on affichera plus tard
+      if(Math.floor((new Date(Date.now()).getTime() - new Date(myData.dateCollect).getTime()) / 1000 / 60 / 60 / 24)<=300){
+        // on ajoute dans une liste les données concernant ces jours au format IData
+        this.dataStorage?.push(myData);
+      }
+    }
+    this.loadChartVote();
+    this.loadChartRating();
+  }
 }

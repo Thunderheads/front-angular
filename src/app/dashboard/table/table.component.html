@@ -2,34 +2,36 @@
   <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource">
 
-      <!-- Position Column -->
+      <!-- Nom Column -->
       <ng-container matColumnDef="Nom">
-        <th mat-header-cell *matHeaderCellDef> Nom </th>
-        <td mat-cell *matCellDef="let element"> <a href="#">{{element.nom}}</a> </td>
+        <th mat-header-cell *matHeaderCellDef> Nom</th>
+        <td mat-cell *matCellDef="let element"><a href="#">{{element.nom}}</a></td>
       </ng-container>
 
-      <!-- Name Column -->
+      <!-- Note Column -->
       <ng-container matColumnDef="Note">
-        <th mat-header-cell *matHeaderCellDef> Note </th>
-        <td mat-cell *matCellDef="let element"> {{element.note}}/{{maxRating}} </td>
+        <th mat-header-cell *matHeaderCellDef> Note</th>
+        <td mat-cell *matCellDef="let element"> {{element.datas[1].rating}}/{{maxRating}} </td>
       </ng-container>
 
-      <!-- Weight Column -->
+      <!-- Avis Column -->
       <ng-container matColumnDef="Avis">
-        <th mat-header-cell *matHeaderCellDef> Avis </th>
-        <td mat-cell *matCellDef="let element"> {{element.avis}} (+{{element.avisAugmentation}}) </td>
+        <th mat-header-cell *matHeaderCellDef> Avis</th>
+        <td mat-cell *matCellDef="let element"> {{element.datas[1].vote}} </td>
       </ng-container>
 
       <!-- Symbol Column -->
       <ng-container matColumnDef="OS">
-        <th mat-header-cell *matHeaderCellDef> OS </th>
+        <th mat-header-cell *matHeaderCellDef> OS</th>
 
-          <td mat-cell *matCellDef="let element" >
-            <mat-icon class="icon" *ngIf="element.os ==='android'">android</mat-icon>
-            <mat-icon *ngIf="element.os ==='iOS'">apple</mat-icon>
+        <td mat-cell *matCellDef="let element">
+          <div *ngFor="let source of element.sources">
+              <mat-icon class="icon" *ngIf="source.os.nom ==='android'">android</mat-icon>
+              <mat-icon *ngIf=" source.os.nom ==='iOS'">apple</mat-icon>
+          </div>
 
-          </td>
 
+        </td>
 
 
       </ng-container>

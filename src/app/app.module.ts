@@ -18,6 +18,7 @@ import { GrapheComponent } from './afficher/graphe/graphe.component';
 import { AjouterComponent } from './ajouter/ajouter.component';
 import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from "@angular/material/input";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import {MatInputModule} from "@angular/material/input";
     MatSelectModule,
     MatCardModule,
     MatButtonModule,
-    MatInputModule
+    MatInputModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

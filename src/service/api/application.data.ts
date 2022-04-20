@@ -14,12 +14,12 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class CampusData{
+export class ApplicationData{
 
   constructor(private http: HttpClient) { }
 
   /**
-   * Fonction d'obtenir des applications
+   * Fonction permettent de récuperer les applications
    * @param url
    */
   public get(url: string): Observable<IApplication> {

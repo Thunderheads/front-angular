@@ -1,6 +1,6 @@
 export interface IData{
 
-    dataCollect : Date;
+    dateCollect : Date;
     rating : number;
     vote : number;
 }

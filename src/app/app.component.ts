@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -7,7 +8,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'AngularTestMAtBOOT';
+  constructor(private router: Router) {
 
+  }
   /**
    * fonction en charge d'appliquer la classe à la partie du menu selectionner
    */
@@ -15,9 +18,9 @@ export class AppComponent {
 
     // @ts-ignore
     for(let element of document.getElementsByClassName('active')){
-      console.log(element.classList.remove('active'))
+      element.classList.remove('active')
     }
-
     document.getElementById(id)!.classList.add('active')
+    this.router.navigateByUrl('/'+ id);
   }
 }

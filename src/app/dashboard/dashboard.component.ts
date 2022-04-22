@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ApplicationData} from "../../service/api/application.data";
+import {TableData} from "../../service/api/table.data";
 import {IApplication} from "../../modeleInterface/IApplication";
 
 @Component({

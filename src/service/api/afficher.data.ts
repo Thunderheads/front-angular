@@ -1,7 +1,8 @@
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {IApplication} from "../../modeleInterface/IApplication";
 import {Observable} from "rxjs";
 import {Injectable} from "@angular/core";
+import {IOS} from "../../modeleInterface/IOS";
+
 
 const httpOptions = {
   headers: new HttpHeaders(
@@ -14,17 +15,17 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class ApplicationData{
+export class AfficherData{
 
   constructor(private http: HttpClient) { }
 
   /**
-   * Fonction permettent de récuperer les applications
+   * Fonction permettent de récuperer une application
    * @param url
    */
-  public get(url: string): Observable<IApplication> {
+  public get(url: string): Observable<IOS> {
 
-    return this.http.get<IApplication>(url, httpOptions)
+    return this.http.get<IOS>(url, httpOptions)
   }
 
 }

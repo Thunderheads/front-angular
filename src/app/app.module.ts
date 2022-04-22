@@ -22,6 +22,7 @@ import {MatInputModule} from "@angular/material/input";
 import {HttpClientModule} from "@angular/common/http";
 import {registerLocaleData} from "@angular/common";
 import { AppRoutingModule } from './app-routing.module';
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
 
 @NgModule({
   declarations: [
@@ -32,22 +33,23 @@ import { AppRoutingModule } from './app-routing.module';
     GrapheComponent,
     AjouterComponent
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatCardModule,
-    MatButtonModule,
-    MatInputModule,
-    HttpClientModule,
-    AppRoutingModule
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatToolbarModule,
+        MatIconModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatCardModule,
+        MatButtonModule,
+        MatInputModule,
+        HttpClientModule,
+        AppRoutingModule,
+        MatButtonToggleModule
+    ],
   providers: [{provide: LOCALE_ID, useValue: 'fr-FR'}],
   bootstrap: [AppComponent]
 })

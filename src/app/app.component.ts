@@ -11,6 +11,7 @@ export class AppComponent {
   constructor(private router: Router) {
 
   }
+
   /**
    * fonction en charge d'appliquer la classe à la partie du menu selectionner
    */
@@ -21,6 +22,6 @@ export class AppComponent {
       element.classList.remove('active')
     }
     document.getElementById(id)!.classList.add('active')
-    this.router.navigateByUrl('/'+ id);
+    this.router.navigateByUrl('/?id='+ id);
   }
 }

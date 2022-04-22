@@ -8,7 +8,7 @@ import {AfficherComponent} from "./afficher/afficher.component";
 const routes: Routes = [
   { path: 'home', component:  DashboardComponent},
   { path: 'ajouter', component : AjouterComponent},
-  { path: 'afficher' , component : AfficherComponent}
+  { path: 'afficher/:id' , component : AfficherComponent}
 ];
 
 @NgModule({

@@ -2,7 +2,9 @@ import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {IApplication} from "../../../modeleInterface/IApplication";
-import {ApplicationData} from "../../../service/api/application.data";
+import {TableData} from "../../../service/api/table.data";
+import {IHomePage} from "../../../modeleInterface/IHomePage";
+import {Router} from "@angular/router";
 
 /**
  * @title Table with pagination
@@ -12,23 +14,16 @@ import {ApplicationData} from "../../../service/api/application.data";
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css']
 })
-export class TableComponent implements AfterViewInit, OnInit {
+export class TableComponent implements  OnInit {
 
-  displayedColumns: string[] = ['Nom', 'Note', 'Avis', 'OS'];
-  datas : IApplication[] = [];
-  dataSource = new MatTableDataSource<IApplication>(this.datas);
+  displayedColumns: string[] = ['Nom', 'Note', 'Avis', 'OS', 'Detail'];
+  datas : IHomePage[] = [];
+  dataSource : any;
   maxRating : number = 5;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private appData : ApplicationData) { }
-
-  ngAfterViewInit() {
-    // @ts-ignore
-    this.dataSource.paginator = this.paginator;
-  }
-
-  ngOnInit(): void {
+  constructor(private appData : TableData, private router: Router) {
 
     this.appData.get('http://localhost/test/public/api/application').
     subscribe(
@@ -36,14 +31,20 @@ export class TableComponent implements AfterViewInit, OnInit {
         for (let element of data){
           this.datas.push(element);
         }
-        this.dataSource = new MatTableDataSource<IApplication>(this.datas);
-
+        this.dataSource = new MatTableDataSource<IHomePage>(this.datas);
+        this.dataSource.paginator = this.paginator;
       }
     )
   }
+  ngOnInit(): void {
 
 
+  }
 
+
+  redirection(id : number) {
+    this.router.navigateByUrl('/afficher/'+ id);
+  }
 }
 
 

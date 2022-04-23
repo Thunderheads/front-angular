@@ -21,12 +21,13 @@ export class AfficherComponent implements OnInit {
   constructor(private route: ActivatedRoute, private afficherData: AfficherData) {}
 
   ngOnInit(): void {
-
+    //TODO : passer la liste au composant fils
     this.currentIDApp = this.route.snapshot.paramMap.get('id')!;
-    const url = 'http://localhost/test/public/api/os/' + this.currentIDApp;
+    //http://localhost/test/public/api/os/
+    const url = 'http://localhost/back-Symfony/public/api/os/' + this.currentIDApp;
     this.afficherData.get(url).subscribe(
       data => {
-        console.log(data)
+
         for (let myData of data) {
 
           if(myData.nom == 'android'){
@@ -35,7 +36,6 @@ export class AfficherComponent implements OnInit {
           }
           if(myData.nom == 'iOS'){
             this.appIos = myData
-            console.log(this.appIos)
           }
         }
 

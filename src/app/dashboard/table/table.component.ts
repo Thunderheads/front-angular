@@ -24,8 +24,8 @@ export class TableComponent implements  OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private appData : TableData, private router: Router) {
-
-    this.appData.get('http://localhost/test/public/api/application').
+    //http://localhost/test/public/api/application
+    this.appData.get('http://localhost/back-Symfony/public/api/application').
     subscribe(
       data => {
         for (let element of data){

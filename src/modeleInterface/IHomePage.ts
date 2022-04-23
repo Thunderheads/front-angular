@@ -1,13 +1,10 @@
 export interface IHomePage{
 
   [Symbol.iterator](): IterableIterator<IHomePage>;
-  id : number,
-  nom_application: string,
+  app_id : number,
+  app_nom : string,
+  os : string,
   rating : number,
-  vote : number,
-  responsable: string,
-  plateforme1: string,
-  plateforme2: string,
-  vote_hier : number,
+  vote_jour : number,
   diff : number
 }

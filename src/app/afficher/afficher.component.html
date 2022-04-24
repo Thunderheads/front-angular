@@ -4,63 +4,67 @@
   </div>
 </div>
 <ng-container *ngIf=" appIos != undefined && appAndroid != undefined else elseBlock">
-  <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-    <mat-button-toggle value="bold" (click)="change('android')">Android</mat-button-toggle>
-    <mat-button-toggle value="italic" (click)="change('iOS')">iOS</mat-button-toggle>
-  </mat-button-toggle-group>
-    <div class="row justify-content-around">
-      <div class="col-3">
-        <mat-card class="pb-0">
-          <div class="row">
-            <p>Application :</p>
-          </div>
-          <div class="row justify-content-around">
-
-            <p class="fs-5 col-6 mt-3 textBlue"><b>{{app.nom}}</b></p>
-          </div>
-        </mat-card>
-      </div>
-
-      <div class="col-3">
-        <mat-card class="pb-0">
-          <div class="row">
-            <p>Note Actuelle :</p>
-          </div>
-          <div class="row justify-content-around">
-
-            <p class="fs-5 col-4 mt-3 textBlue ">
-              <b>{{app.donnes[app.donnes.length - 1].rating}}</b>/ 5</p>
-          </div>
-        </mat-card>
-      </div>
-
-
-      <div class="col-3 pb-0">
-        <mat-card class="pb-0">
-          <div class="row">
-            <p>Avis reçus :</p>
-          </div>
-          <div class="row justify-content-around">
-
-            <p class="fs-5 col-4 mt-3 textBlue">
-              <b>{{app.donnes[app.donnes.length - 1].vote}}</b></p>
-          </div>
-        </mat-card>
-      </div>
-
-      <div class="col-3 pb-0">
-        <mat-card>
-          <div class="row">
-            <p>OS :</p>
-          </div>
-          <div class="row justify-content-center">
-
-            <mat-icon class="icon mb-2 me-5" *ngIf="app.nom == 'iOS'">apple</mat-icon>
-            <mat-icon class="icon mb-2 me-5" *ngIf="app.nom == 'android'">android</mat-icon>
-          </div>
-        </mat-card>
-      </div>
+  <div class="row justify-content-center mb-2">
+    <div class="col-2 ">
+    <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+      <mat-button-toggle value="bold" (click)="change('android')">Android</mat-button-toggle>
+      <mat-button-toggle value="italic" (click)="change('iOS')">iOS</mat-button-toggle>
+    </mat-button-toggle-group>
     </div>
+  </div>
+  <div class="row justify-content-around">
+    <div class="col-3">
+      <mat-card class="pb-0">
+        <div class="row">
+          <p>Application :</p>
+        </div>
+        <div class="row justify-content-around">
+
+          <p class="fs-5 col-6 mt-3 textBlue"><b>{{app.nom}}</b></p>
+        </div>
+      </mat-card>
+    </div>
+
+    <div class="col-3">
+      <mat-card class="pb-0">
+        <div class="row">
+          <p>Note Actuelle :</p>
+        </div>
+        <div class="row justify-content-around">
+
+          <p class="fs-5 col-5 mt-3 textBlue ">
+            <b>{{app.donnes[app.donnes.length - 1].rating}}</b>/ 5</p>
+        </div>
+      </mat-card>
+    </div>
+
+
+    <div class="col-3 pb-0">
+      <mat-card class="pb-0">
+        <div class="row">
+          <p>Avis reçus :</p>
+        </div>
+        <div class="row justify-content-around">
+
+          <p class="fs-5 col-4 mt-3 textBlue">
+            <b>{{app.donnes[app.donnes.length - 1].vote}}</b></p>
+        </div>
+      </mat-card>
+    </div>
+
+    <div class="col-3 pb-0">
+      <mat-card>
+        <div class="row">
+          <p>OS :</p>
+        </div>
+        <div class="row justify-content-center">
+
+          <mat-icon class="icon mb-2 me-5" *ngIf="app.nom == 'iOS'">apple</mat-icon>
+          <mat-icon class="icon mb-2 me-5" *ngIf="app.nom == 'android'">android</mat-icon>
+        </div>
+      </mat-card>
+    </div>
+  </div>
 </ng-container>
 
 <ng-template #elseBlock>
@@ -85,7 +89,7 @@
           </div>
           <div class="row justify-content-around">
 
-            <p class="fs-5 col-4 mt-3 textBlue ">
+            <p class="fs-5 col-5 mt-3 textBlue ">
               <b>{{appIos.donnes[appIos.donnes.length - 1].rating}}</b>/ 5</p>
           </div>
         </mat-card>
@@ -139,8 +143,7 @@
             <p>Note Actuelle :</p>
           </div>
           <div class="row justify-content-around">
-
-            <p class="fs-5 col-4 mt-3 textBlue ">
+            <p class="fs-5 col-5 mt-3 textBlue ">
               <b>{{appAndroid.donnes[appAndroid.donnes.length - 1].rating}}</b>/ 5</p>
           </div>
         </mat-card>
@@ -175,5 +178,5 @@
   </ng-container>
 </ng-template>
 <app-graphe
-[donnes]="app.donnes"
+  [donnes]="app.donnes"
 ></app-graphe>

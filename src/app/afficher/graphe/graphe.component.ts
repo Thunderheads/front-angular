@@ -17,6 +17,7 @@ export class GrapheComponent implements OnInit, OnChanges  {
 
   @Input() donnes!: IData[];
 
+  isload : boolean = false;
   chartRating: any;
   chartVote: any;
 
@@ -42,6 +43,7 @@ export class GrapheComponent implements OnInit, OnChanges  {
     this.loadChartRating();
     Chart.register(...registerables);
     this.loadChartVote();
+
   }
 
   private loadChartRating() {

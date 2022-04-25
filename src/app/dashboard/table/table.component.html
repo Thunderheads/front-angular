@@ -5,7 +5,7 @@
       <!-- Nom Column -->
       <ng-container matColumnDef="Nom">
         <th mat-header-cell *matHeaderCellDef> Nom</th>
-        <td mat-cell *matCellDef="let element"><a href="#">{{element.nom_application}}</a></td>
+        <td mat-cell *matCellDef="let element"><a href="#">{{element.app_nom}}</a></td>
       </ng-container>
 
       <!-- Note Column -->
@@ -17,7 +17,7 @@
       <!-- Avis Column -->
       <ng-container matColumnDef="Avis">
         <th mat-header-cell *matHeaderCellDef> Avis</th>
-        <td mat-cell *matCellDef="let element"> {{element.vote}} (+{{element.diff}}) </td>
+        <td mat-cell *matCellDef="let element"> {{element.vote_jour}} (+{{element.diff}}) </td>
       </ng-container>
 
       <!-- Symbol Column -->
@@ -25,17 +25,16 @@
         <th mat-header-cell *matHeaderCellDef> OS</th>
 
         <td mat-cell *matCellDef="let element">
-            <mat-icon class="icon" *ngIf="element.plateforme1 ==='android'">android</mat-icon>
-            <mat-icon  *ngIf="element.plateforme1 ==='iOS'">apple</mat-icon>
-            <mat-icon class="icon" *ngIf="element.plateforme2 ==='android'">android</mat-icon>
-            <mat-icon  *ngIf="element.plateforme2 ==='iOS'">apple</mat-icon>
+            <mat-icon class="icon" *ngIf="element.os ==='android'">android</mat-icon>
+            <mat-icon  *ngIf="element.os ==='iOS'">apple</mat-icon>
+
         </td>
       </ng-container>
 
       <ng-container matColumnDef="Detail">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element">
-          <button mat-flat-button color="primary" (click)="redirection(element.id)"> Détail >> </button>
+          <button mat-flat-button color="primary" (click)="redirection(element.app_id)"> Détail >> </button>
         </td>
       </ng-container>
 

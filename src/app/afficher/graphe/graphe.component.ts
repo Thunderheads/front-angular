@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {Chart, registerables} from "chart.js";
 import {TableData} from "../../../service/api/table.data";
 import {MatTableDataSource} from "@angular/material/table";
@@ -13,12 +13,15 @@ import {ActivatedRoute, Params, Router} from "@angular/router";
   templateUrl: './graphe.component.html',
   styleUrls: ['./graphe.component.css']
 })
-export class GrapheComponent implements OnInit {
+export class GrapheComponent implements OnInit, OnChanges  {
 
+  @Input() donnes!: IData[];
+
+  isload : boolean = false;
   chartRating: any;
   chartVote: any;
-  data !: IApplication;
-  dataStorage : IData[] = [];
+
+  dataStorage: IData[] = [];
   currentIDApp!: string;
 
   constructor(private appData: ApplicationDatas, private route: ActivatedRoute) {
@@ -28,28 +31,18 @@ export class GrapheComponent implements OnInit {
     this.currentIDApp = this.route.snapshot.paramMap.get('id')!;
     this.chartRating = document.getElementById('my_first_chart');
     this.chartVote = document.getElementById('my_second_chart');
-    const url = 'http://localhost/test/public/api/application/' + this.currentIDApp;
-    this.appData.get(url).subscribe(
-      data => {
-        this.data = data;
-        for(let myData of data.datas!){
-          //si la date du jour - date collect est en dessous de 7 jours on stocke les données qu'on affichera plus tard
-          if(Math.floor((new Date(Date.now()).getTime() - new Date(myData.dateCollect).getTime()) / 1000 / 60 / 60 / 24)<=7){
-            // on ajoute dans une liste les données concernant ces jours au format IData
-            this.dataStorage?.push(myData);
-          }
-        }
-
-        //pour récuperer la date du jour new Date(Date.now()).getDate()
-        Chart.register(...registerables);
-        this.loadChartRating();
-
-
-        Chart.register(...registerables);
-        this.loadChartVote();
-
+    for (let myData of this.donnes!) {
+      //si la date du jour - date collect est en dessous de 7 jours on stocke les données qu'on affichera plus tard
+      if (Math.floor((new Date(Date.now()).getTime() - new Date(myData.dateCollect).getTime()) / 1000 / 60 / 60 / 24) <= 7) {
+        // on ajoute dans une liste les données concernant ces jours au format IData
+        this.dataStorage?.push(myData);
       }
-    )
+    }
+    //pour récuperer la date du jour new Date(Date.now()).getDate()
+    Chart.register(...registerables);
+    this.loadChartRating();
+    Chart.register(...registerables);
+    this.loadChartVote();
 
   }
 
@@ -91,8 +84,6 @@ export class GrapheComponent implements OnInit {
           backgroundColor: "blue",
 
 
-
-
         }],
         labels: this.listeDate(this.dataStorage),
       },
@@ -114,11 +105,11 @@ export class GrapheComponent implements OnInit {
    * @param lstDatas
    * @return string[]
    */
-  public listeDate(lstDatas : IData[]) : string[]{
-    let lstDate : string[]=[];
+  public listeDate(lstDatas: IData[]): string[] {
+    let lstDate: string[] = [];
 
-    for (let data of lstDatas){
-      lstDate.push(formatDate(data.dateCollect,'dd/MM/yyyy', 'fr-FR'));
+    for (let data of lstDatas) {
+      lstDate.push(formatDate(data.dateCollect, 'dd/MM/yyyy', 'fr-FR'));
 
     }
     return lstDate
@@ -130,10 +121,10 @@ export class GrapheComponent implements OnInit {
    * @param lstRating
    * @return number[]
    */
-  public listeRating(lstDatas : IData[]) : number[]{
-    let lstRating : number[]=[];
+  public listeRating(lstDatas: IData[]): number[] {
+    let lstRating: number[] = [];
 
-    for (let data of lstDatas){
+    for (let data of lstDatas) {
       lstRating.push(data.rating);
     }
     return lstRating;
@@ -144,32 +135,14 @@ export class GrapheComponent implements OnInit {
    * @param lstVote
    * @return number[]
    */
-  public listeVote(lstDatas : IData[]) : number[]{
-    let lstVote : number[]=[];
+  public listeVote(lstDatas: IData[]): number[] {
+    let lstVote: number[] = [];
 
-    for (let data of lstDatas){
+    for (let data of lstDatas) {
       lstVote.push(data.vote);
     }
     return lstVote;
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   /// A FACTORISER !!!!!!
@@ -187,9 +160,9 @@ export class GrapheComponent implements OnInit {
     this.chartVote = document.getElementById('my_second_chart');
 
     this.dataStorage = [];
-    for(let myData of this.data.datas!){
+    for (let myData of this.donnes!) {
       //si la date du jour - date collect est en dessous de 7 jours on stocke les données qu'on affichera plus tard
-      if(Math.floor((new Date(Date.now()).getTime() - new Date(myData.dateCollect).getTime()) / 1000 / 60 / 60 / 24)<=7){
+      if (Math.floor((new Date(Date.now()).getTime() - new Date(myData.dateCollect).getTime()) / 1000 / 60 / 60 / 24) <= 7) {
         // on ajoute dans une liste les données concernant ces jours au format IData
         this.dataStorage?.push(myData);
       }
@@ -211,9 +184,9 @@ export class GrapheComponent implements OnInit {
     this.chartRating = document.getElementById('my_first_chart');
     this.chartVote = document.getElementById('my_second_chart');
     this.dataStorage = [];
-    for(let myData of this.data.datas!){
+    for (let myData of this.donnes!) {
       //si la date du jour - date collect est en dessous de 7 jours on stocke les données qu'on affichera plus tard
-      if(Math.floor((new Date(Date.now()).getTime() - new Date(myData.dateCollect).getTime()) / 1000 / 60 / 60 / 24)<=31){
+      if (Math.floor((new Date(Date.now()).getTime() - new Date(myData.dateCollect).getTime()) / 1000 / 60 / 60 / 24) <= 31) {
         // on ajoute dans une liste les données concernant ces jours au format IData
         this.dataStorage?.push(myData);
       }
@@ -238,9 +211,9 @@ export class GrapheComponent implements OnInit {
 
 
     this.dataStorage = [];
-    for(let myData of this.data.datas!){
+    for (let myData of this.donnes!) {
       //si la date du jour - date collect est en dessous de 7 jours on stocke les données qu'on affichera plus tard
-      if(Math.floor((new Date(Date.now()).getTime() - new Date(myData.dateCollect).getTime()) / 1000 / 60 / 60 / 24)<=90){
+      if (Math.floor((new Date(Date.now()).getTime() - new Date(myData.dateCollect).getTime()) / 1000 / 60 / 60 / 24) <= 90) {
         // on ajoute dans une liste les données concernant ces jours au format IData
         this.dataStorage?.push(myData);
       }
@@ -248,4 +221,11 @@ export class GrapheComponent implements OnInit {
     this.loadChartVote();
     this.loadChartRating();
   }
+
+  //activé quand changement dans le coposant parent
+  ngOnChanges(changes: SimpleChanges): void {
+    this.changeToWeek()
+  }
+
+
 }

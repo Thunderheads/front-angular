@@ -22,6 +22,6 @@ export class AppComponent {
       element.classList.remove('active')
     }
     document.getElementById(id)!.classList.add('active')
-    this.router.navigateByUrl('/?id='+ id);
+    this.router.navigateByUrl('/'+ id);
   }
 }

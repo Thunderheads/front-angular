@@ -1,6 +1,7 @@
 <div class="row justify-content-around">
   <span class="col-5 p-4 fs-3">Surveiller une Application</span>
 </div>
+
 <div class="row align-content-around pt-5">
   <div class="col-6">
     <span class="fs-5">Coller l'URL de la page d'accès à l'application que vous souhaitez surveiller :</span>
@@ -8,12 +9,37 @@
   <div class="col-3">
     <mat-form-field appearance="fill">
       <mat-label>URL</mat-label>
-      <input matInput>
+      <input matInput type="text" name="url" [(ngModel)]="url">
     </mat-form-field>
   </div>
   <div class="col-2">
-    <button mat-fab color="primary" >
-      <mat-icon >add</mat-icon>
+    <button mat-fab color="primary" (click)="checkData()">
+      <mat-icon>add</mat-icon>
     </button>
   </div>
+</div>
+<p *ngIf="isError">
+  L'URL que vous avez saisit n'a pas permis d'obtenir de résultat, merci de ressayer
+</p>
+<div *ngIf="data != undefined">
+  <div> Nom : {{ data.app_nom}}</div>
+  <div> Note : {{ data.app_note}}</div>
+  <div> Nombre d'avis : {{ data.app_nombreAvis}}</div>
+  <div> Device : {{ data.app_os}}</div>
+  <div> Souhaitez vous renommer cette application ? (le nom par défaut sera {{data.app_nom }} </div>
+  <button mat-raised-button color="primary" (click)="changeName(true)">OUI</button>
+  <button mat-raised-button color="warn" (click)="confirmation()">NON</button>
+</div>
+<div *ngIf="isNameChange">
+  <mat-form-field appearance="fill">
+    <mat-label>Nom application</mat-label>
+    <input matInput type="text" name="nomApplication" [(ngModel)]="nomApplication">
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="confirmation()">Confirmer le nom</button>
+  <button mat-raised-button color="warn" (click)="changeName(false)"> Annuler</button>
+</div>
+<div *ngIf="isConfirmed">
+  <div>Confirmer la saisie ?</div>
+  <button mat-raised-button color="primary" (click)="checkData(true)"> Ajouter</button>
+  <button mat-raised-button color="warn" (click)="changeName(false)"> Annuler</button>
 </div>

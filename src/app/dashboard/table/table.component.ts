@@ -25,7 +25,7 @@ export class TableComponent implements  OnInit {
 
   constructor(private appData : TableData, private router: Router) {
     //http://localhost/test/public/api/application
-    this.appData.get('http://localhost/back-Symfony/public/api/application').
+    this.appData.get('http://localhost/test/public/api/application').
     subscribe(
       data => {
         for (let element of data){

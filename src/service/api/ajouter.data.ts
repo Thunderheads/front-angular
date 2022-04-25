@@ -27,6 +27,6 @@ export class AjouterData{
    */
   public postApplication(url: string, param : IAjouter): Observable<IApplication> {
 
-    return this.http.post<IApplication>(url, param)
+    return this.http.post<IApplication>(url, param, httpOptions)
   }
 }

@@ -24,7 +24,7 @@ export class AfficherComponent implements OnInit {
     //TODO : passer la liste au composant fils
     this.currentIDApp = this.route.snapshot.paramMap.get('id')!;
     //http://localhost/test/public/api/os/
-    const url = 'http://localhost/back-Symfony/public/api/os/' + this.currentIDApp;
+    const url = 'http://localhost/test/public/api/os/' + this.currentIDApp;
     this.afficherData.get(url).subscribe(
       data => {
 

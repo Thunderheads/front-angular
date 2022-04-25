@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AjouterData} from "../../service/api/ajouter.data";
 import {IApplication} from "../../modeleInterface/IApplication";
+import {FormControl} from "@angular/forms";
 
 @Component({
   selector: 'app-ajouter',
@@ -11,34 +12,69 @@ import {IApplication} from "../../modeleInterface/IApplication";
 
 export class AjouterComponent implements OnInit {
 
-  private ajout!: IAjouter;
+  public url : string;
+  public isInsert : boolean;
+  public isError : boolean = true;
+  public data : any;
+  public isNameChange : boolean = false;
+  public nomApplication : string = 'undefined';
+  public isConfirmed : boolean = false;
 
-  constructor(private ajouterApp : AjouterData) {
+
+
+
+  constructor(private ajouterApp: AjouterData) {
+    this.isInsert = false;
+    this.url = "";
   }
 
   ngOnInit(): void {
-    this.ajout.isInsert = false;
+
+
   }
 
   /**
    * Fonction en charge de lancer l'appel a l'api pour tester l'url
-   * @constructor
+   *
    */
-  public CheckData(){
+  checkData(isInsert? : boolean) {
+    let ajouter : IAjouter = {
+      urlATester: this.url,
+      isInsert: this.isInsert,
+      nomApplication : this.nomApplication
+    };
+    if(isInsert){
+      ajouter.isInsert = true;
+    }
 
-    const url = "";
-    this.ajouterApp.postApplication(url, this.ajout).subscribe(
-      data => {
-        console.log(data)
+    const url = "http://localhost/test/public/api/application/";
+    console.log(ajouter);
+    this.ajouterApp.postApplication(url, ajouter).subscribe({
+      next : value => {this.data = value},
+      //si erreur on passe pas dans next et dans complete
+      error : err => {this.isError = true, this.data=undefined} ,
+      complete : () => console.log('Done')
       }
     )
+
+
+
   }
 
+
+  changeName(value : boolean) {
+    this.isNameChange = value
+  }
+
+  confirmation() {
+    this.isConfirmed =true;
+  }
 }
 
 
-export interface IAjouter{
+export interface IAjouter {
 
-  urlATester : string;
-  isInsert : boolean;
+  urlATester: string,
+  isInsert: boolean,
+  nomApplication : string ,
 }

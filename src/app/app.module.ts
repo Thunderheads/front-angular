@@ -23,6 +23,8 @@ import {HttpClientModule} from "@angular/common/http";
 import {registerLocaleData} from "@angular/common";
 import { AppRoutingModule } from './app-routing.module';
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
+import {FormsModule} from "@angular/forms";
+import {MatStepperModule} from "@angular/material/stepper";
 
 @NgModule({
   declarations: [
@@ -48,7 +50,9 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle";
         MatInputModule,
         HttpClientModule,
         AppRoutingModule,
-        MatButtonToggleModule
+        MatButtonToggleModule,
+        FormsModule,
+        MatStepperModule
     ],
   providers: [{provide: LOCALE_ID, useValue: 'fr-FR'}],
   bootstrap: [AppComponent]

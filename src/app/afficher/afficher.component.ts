@@ -38,9 +38,7 @@ export class AfficherComponent implements OnInit {
             console.log(this.appIos)
           }
         }
-
       });
-
   }
 
 

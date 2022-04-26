@@ -9,23 +9,14 @@
   </div>
   <div class="col-3">
     <mat-form-field appearance="fill">
-      <mat-label>Choix App</mat-label>
-      <mat-select>
-        <mat-option value="one">First option</mat-option>
-        <mat-option value="two">Second option</mat-option>
+      <mat-label>Sélectionnez une application</mat-label>
+      <mat-select (selectionChange)="selectedApp( $event.value)">
+        <mat-option *ngFor= "let data of datas" value="{{ data.id}}" > {{ data.nom }}</mat-option>
       </mat-select>
     </mat-form-field>
   </div>
 
-  <div class="col-3">
-        <mat-form-field appearance="fill">
-          <mat-label>Choix administrateur</mat-label>
-          <mat-select>
-            <mat-option value="one">First option</mat-option>
-            <mat-option value="two">Second option</mat-option>
-          </mat-select>
-        </mat-form-field>
-  </div>
+
 
   <div class="col-3">
 
@@ -39,5 +30,18 @@
 
 </div>
 
+  <div class="col-3">
+
+    <mat-form-field appearance="fill">
+      <mat-label>Note </mat-label>
+      <mat-select (selectionChange)="selectedNote( $event.value)" >
+        <mat-option value="décroissant">Décroissant</mat-option>
+        <mat-option value="croissant">Croissant</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </div>
+
+
 </div>
-<app-table></app-table>
+<app-table [donnes]= "id_app" [donnes2] = "ordre" ></app-table>

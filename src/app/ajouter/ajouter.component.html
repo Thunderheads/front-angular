@@ -1,55 +1,27 @@
 <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
   {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
 </button>
-<mat-stepper [linear]="isLinear" #stepper class="h-100 justify-content-center flex-column ">
+<mat-stepper [linear]="isLinear" #stepper>
 
   <!-- Etape Verification URL-->
   <mat-step>
     <ng-template matStepLabel>Test URL</ng-template>
-    <div *ngIf="!isError" class="row align-content-around m-5 p-5 ">
-      <div class="col-6">
-        <span class="fs-5">Coller l'URL de la page d'accès à l'application que vous souhaitez surveiller :</span>
-      </div>
-      <div class="col-3">
-        <mat-form-field appearance="fill">
-          <mat-label>URL</mat-label>
-          <input matInput type="text" name="url" [(ngModel)]="url">
-        </mat-form-field>
-      </div>
-      <div class="col-2">
-        <button mat-fab color="primary" (click)="checkData(stepper)">
-          <mat-icon>add</mat-icon>
-        </button>
-      </div>
-    </div>
-    <div *ngIf="isError">
-      <div class="row justify-content-around mt-5 mb-5 w-auto h-auto align-content-end">
-        <p class="col-6 fs-3 text-center">
-          Désole, URL que vous avez renseigné n'a pas permis d'obtenir de résultat.
-        </p>
-      </div>
-      <div class="row justify-content-around">
-        <button mat-flat-button color="primary" (click)="retry()" class="col-3">
-          Réssayer
-          <mat-icon>loop</mat-icon>
-        </button>
-      </div>
-
-    </div>
   </mat-step>
+
 
 
   <!-- Etape Verification URL-->
   <mat-step label="Informations Applications">
     <div *ngIf="data != undefined" class="row justify-content-around">
       <div class="col-4 mb-5 mt-5">
-      <div> Nom : {{ data.app_nom}}</div>
-      <div> Note : {{ data.app_note}}</div>
-      <div> Nombre d'avis : {{ data.app_nombreAvis}}</div>
-      <div> Device : {{ data.app_os}}</div>
+        <div> Nom : {{ data.app_nom}}</div>
+        <div> Note : {{ data.app_note}}</div>
+        <div> Nombre d'avis : {{ data.app_nombreAvis}}</div>
+        <div> Device : {{ data.app_os}}</div>
       </div>
 
-      <div class="mb-5 mt-5"> Souhaitez vous renommer cette application ? (le nom par défaut sera {{data.app_nom }}) </div>
+      <div class="mb-5 mt-5"> Souhaitez vous renommer cette application ? (le nom par défaut sera {{data.app_nom }})
+      </div>
       <button mat-raised-button color="primary" (click)="changeName(true)">OUI</button>
       <button mat-raised-button color="warn" (click)="confirmation()">NON</button>
     </div>
@@ -61,8 +33,7 @@
       <button mat-raised-button color="primary" (click)="confirmation()">Confirmer le nom</button>
       <button mat-raised-button color="warn" (click)="changeName(false)"> Annuler</button>
     </div>
-   </mat-step>
-
+  </mat-step>
 
 
   <mat-step>
@@ -75,5 +46,37 @@
   </mat-step>
 </mat-stepper>
 
+<div class="h-75 d-flex align-items-center ">
+  <div *ngIf="!isError" class="row p-5 m-5">
+
+    <div class="col-6">
+      <span class="fs-5">Coller l'URL de la page d'accès à l'application que vous souhaitez surveiller :</span>
+    </div>
+    <div class="col-3">
+      <mat-form-field appearance="fill">
+        <mat-label>URL</mat-label>
+        <input matInput type="text" name="url" [(ngModel)]="url">
+      </mat-form-field>
+    </div>
+    <div class="col-2">
+      <button mat-fab color="primary" (click)="checkData(stepper)">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div *ngIf="isError" class="row p-5 m-5">
+    <div class="row justify-content-around mt-5 mb-5 w-auto h-auto align-content-end">
+      <p class="col-6 fs-3 text-center">
+        Désole, URL que vous avez renseigné n'a pas permis d'obtenir de résultat.
+      </p>
+    </div>
+    <div class="row justify-content-around">
+      <button mat-flat-button color="primary" (click)="retry()" class="col-3">
+        Réssayer
+        <mat-icon>loop</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
 
 

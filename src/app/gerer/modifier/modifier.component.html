@@ -1,0 +1,49 @@
+<div class="row">
+  <p> Modifier les informations</p>
+</div>
+
+<div *ngIf="application !== undefined">
+  <div class="row">
+    <div class="row">
+      <div class="col-6"><label>Nom de l'application</label></div>
+      <div class="col-6">
+        <mat-form-field appearance="fill">
+          <mat-label>url :</mat-label>
+          <input matInput value="{{ application.nom }}">
+        </mat-form-field>
+      </div>
+      <div class="row" *ngFor="let source of application.sources ">
+        <div class="col-4"><label>URL {{source.os.nom}}</label></div>
+        <div class="col-4">
+          <mat-form-field appearance="fill">
+            <mat-label>url :</mat-label>
+            <input matInput value="{{source.url}}" class="{{source.os.nom}}">
+          </mat-form-field>
+        </div>
+
+        <div *ngIf="source.os.nom === 'android'" class="col-4">
+
+          <button mat-fab color="primary" class="{{source.os.nom}}" (click)="checkData('android')">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+        <div *ngIf="source.os.nom === 'iOS' " class="col-4">
+
+          <button mat-fab color="primary" class="{{source.os.nom}}" (click)="checkData('iOS')">
+            <mat-icon>add</mat-icon>
+          </button>
+
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-3">
+          <button>Annuler</button>
+        </div>
+        <div class="col-3">
+          <button>Valider les modifications</button>
+        </div>
+      </div>
+
+    </div>
+  </div>

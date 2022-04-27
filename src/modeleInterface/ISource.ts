@@ -6,5 +6,6 @@ export interface ISource {
 
   [Symbol.iterator](): IterableIterator<ISource>;
   os : IOS;
-  application : IApplication
+  application : IApplication;
+  url : string;
 }

@@ -8,17 +8,6 @@
         <td mat-cell *matCellDef="let element"><a routerLink='/afficher/{{element.app_id}}' >{{element.app_nom}}</a></td>
       </ng-container>
 
-      <!-- Note Column -->
-      <ng-container matColumnDef="Note">
-        <th mat-header-cell *matHeaderCellDef> Note</th>
-          <td mat-cell *matCellDef="let element"> {{element.rating}}/{{maxRating}} </td>
-      </ng-container>
-
-      <!-- Avis Column -->
-      <ng-container matColumnDef="Avis">
-        <th mat-header-cell *matHeaderCellDef> Avis</th>
-        <td mat-cell *matCellDef="let element"> {{element.vote_jour}} (+{{element.diff}}) </td>
-      </ng-container>
 
       <!-- Symbol Column -->
       <ng-container matColumnDef="OS">
@@ -28,6 +17,15 @@
             <mat-icon class="icon" *ngIf="element.os ==='android'">android</mat-icon>
             <mat-icon  *ngIf="element.os ==='iOS'">apple</mat-icon>
 
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Action">
+        <th mat-header-cell *matHeaderCellDef> Action </th>
+        <td mat-cell *matCellDef="let element">
+
+
+          <button mat-flat-button color="primary" (click)="redirectionModif(element.app_id)"> Modifier </button>
         </td>
       </ng-container>
 

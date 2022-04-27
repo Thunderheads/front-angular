@@ -25,17 +25,24 @@ import { AppRoutingModule } from './app-routing.module';
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {FormsModule} from "@angular/forms";
 import {MatStepperModule} from "@angular/material/stepper";
+import { GererComponent } from './gerer/gerer.component';
+import {TablegestionComponent} from "./gerer/tablegestion/tablegestion.component";
+import { ModifierComponent } from './gerer/modifier/modifier.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TableComponent,
+    TablegestionComponent,
     DashboardComponent,
     AfficherComponent,
     GrapheComponent,
-    AjouterComponent
+    AjouterComponent,
+    GererComponent,
+    ModifierComponent
   ],
     imports: [
+
         BrowserModule,
         BrowserAnimationsModule,
         MatTableModule,

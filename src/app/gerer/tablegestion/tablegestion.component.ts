@@ -12,15 +12,15 @@ import {isEmpty} from "rxjs";
  * @title Table with pagination
  */
 @Component({
-  selector: 'app-table',
-  templateUrl: './table.component.html',
-  styleUrls: ['./table.component.css']
+  selector: 'app-tablegestion',
+  templateUrl: './tablegestion.component.html',
+  styleUrls: ['./tablegestion.component.css']
 })
-export class TableComponent implements  OnInit {
+export class TablegestionComponent implements  OnInit {
 
   @Input() donnes: number | undefined;
   @Input() donnes2: string | undefined;
-  displayedColumns: string[] = ['Nom', 'Note', 'Avis', 'OS'];
+  displayedColumns: string[] = ['Nom', 'OS', 'Action'];
   datas : IHomePage[] = [];
   dataSource : any;
   maxRating : number = 5;
@@ -46,7 +46,9 @@ export class TableComponent implements  OnInit {
   }
 
 
-
+  redirection(id : number) {
+    this.router.navigateByUrl('/afficher/'+ id);
+  }
 
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -78,6 +80,10 @@ export class TableComponent implements  OnInit {
       )
 
 
+  }
+
+  redirectionModif(app_id: any) {
+    this.router.navigateByUrl('/gerer/'+ app_id);
   }
 }
 

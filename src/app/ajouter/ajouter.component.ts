@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {AjouterData} from "../../service/api/ajouter.data";
-import {IApplication} from "../../modeleInterface/IApplication";
-import {FormControl} from "@angular/forms";
 import {MatStepper} from "@angular/material/stepper";
 import {Router} from "@angular/router";
 
@@ -15,9 +13,6 @@ import {Router} from "@angular/router";
 export class AjouterComponent implements OnInit {
 
   isLinear = false;
-
-
-
 
 
   public url : string ;
@@ -73,7 +68,7 @@ export class AjouterComponent implements OnInit {
         }
         stepper.next();},
       //si erreur on passe pas dans next et dans complete
-      error : err => {this.isError = true, this.data=undefined} ,
+      error : err => {this.isError = true , this.isTesturlShow = false , this.data=undefined} ,
       complete : () => console.log('Done')
       }
     )
@@ -95,8 +90,9 @@ export class AjouterComponent implements OnInit {
 
   retry() {
     this.isError = false;
-  }
+    this.isTesturlShow = true;
 
+  }
 
   redirection() {
     this.router.navigateByUrl('/home');

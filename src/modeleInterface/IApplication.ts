@@ -11,5 +11,5 @@ export interface IApplication{
   /**
    * IOS / Android
    */
-  source ?: ISource[];
+  sources : ISource[];
 }

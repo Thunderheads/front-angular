@@ -1,7 +1,5 @@
-<button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
-  {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
-</button>
-<mat-stepper [linear]="isLinear" #stepper>
+
+<mat-stepper [linear]="isLinear" class="mt-5" #stepper>
 
   <!-- Etape Verification URL-->
   <mat-step>
@@ -9,45 +7,22 @@
   </mat-step>
 
 
-
   <!-- Etape Verification URL-->
   <mat-step label="Informations Applications">
-    <div *ngIf="data != undefined" class="row justify-content-around">
-      <div class="col-4 mb-5 mt-5">
-        <div> Nom : {{ data.app_nom}}</div>
-        <div> Note : {{ data.app_note}}</div>
-        <div> Nombre d'avis : {{ data.app_nombreAvis}}</div>
-        <div> Device : {{ data.app_os}}</div>
-      </div>
-
-      <div class="mb-5 mt-5"> Souhaitez vous renommer cette application ? (le nom par défaut sera {{data.app_nom }})
-      </div>
-      <button mat-raised-button color="primary" (click)="changeName(true)">OUI</button>
-      <button mat-raised-button color="warn" (click)="confirmation()">NON</button>
-    </div>
-    <div *ngIf="isNameChange" class="row">
-      <mat-form-field appearance="fill">
-        <mat-label>Nom application</mat-label>
-        <input matInput type="text" name="nomApplication" [(ngModel)]="nomApplication">
-      </mat-form-field>
-      <button mat-raised-button color="primary" (click)="confirmation()">Confirmer le nom</button>
-      <button mat-raised-button color="warn" (click)="changeName(false)"> Annuler</button>
-    </div>
   </mat-step>
 
 
   <mat-step>
-    <ng-template matStepLabel>Done</ng-template>
-    <p>You are now done.</p>
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button (click)="stepper.reset()">Reset</button>
-    </div>
+    <ng-template matStepLabel>Confirmation</ng-template>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Validation</ng-template>
   </mat-step>
 </mat-stepper>
 
-<div class="h-75 d-flex align-items-center ">
-  <div *ngIf="!isError" class="row p-5 m-5">
+<div class="h-75 d-flex align-items-center justify-content-center">
+  <div *ngIf="isTesturlShow" class="row p-5 m-5">
 
     <div class="col-6">
       <span class="fs-5">Coller l'URL de la page d'accès à l'application que vous souhaitez surveiller :</span>
@@ -75,6 +50,98 @@
         Réssayer
         <mat-icon>loop</mat-icon>
       </button>
+    </div>
+  </div>
+  <div *ngIf="isInformationApp" class=" row p-5 m-5">
+
+    <div class="row justify-content-around">
+      <div class="col-4 mb-5 mt-5">
+        <div class="fs-5 mb-1 pb-2"> Nom : {{ data.app_nom}}</div>
+        <div class="fs-5 mb-1 pb-2"> Note : {{ data.app_note}}</div>
+        <div class="fs-5 mb-1 pb-2"> Nombre d'avis : {{ data.app_nombreAvis}}</div>
+        <div class="fs-5 mb-1 pb-2"> Device : {{ data.app_os}}</div>
+      </div>
+    </div>
+    <div class="row justify-content-around ">
+      <div class=" col-6 mb-5 mt-5 text-center fs-4 "> Souhaitez vous renommer cette application ? (le nom par défaut
+        sera {{data.app_nom }})
+      </div>
+      <div class="row justify-content-around">
+        <div class="col-3">
+          <div class="row">
+            <div class="col-3 w-auto h-auto">
+              <button mat-raised-button color="primary" (click)="changeName(true)">OUI</button>
+            </div>
+            <div class="col-3 w-auto h-auto">
+              <button mat-raised-button color="warn" (click)="confirmation(stepper)">NON</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div *ngIf="isNameChange" class="row justify-content-around">
+      <div class="row m-5 justify-content-center">
+        <div class="col-2"><label>Nouveau nom</label></div>
+        <div class="col-3">
+          <mat-form-field appearance="fill">
+            <mat-label>Nom application</mat-label>
+            <input matInput type="text" name="nomApplication" [(ngModel)]="nomApplication">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row justify-content-around">
+        <div class="col-4">
+          <div class="row">
+            <div class="col-3 w-auto h-auto">
+              <button mat-raised-button color="primary" (click)="confirmation(stepper)">Confirmer le nom</button>
+            </div>
+            <div class="col-3 w-auto h-auto">
+              <button mat-raised-button color="warn" (click)="changeName(false)"> Annuler</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="isConfirmed" class="row p-5 m-5 ">
+    <div class="row p-5 m-5">
+
+      <div class=" fs-5 text-center"> Confirmer l' ajout de l'application à la liste des applications à surveiller
+        ?
+      </div>
+
+    </div>
+    <div class="row justify-content-center">
+
+      <div class="col-3 w-auto h-auto">
+        <button mat-raised-button color="warn" (click)="changeName(false)"> Annuler</button>
+      </div>
+      <div class="col-3 w-auto h-auto">
+        <button mat-raised-button color="primary" (click)="checkData(stepper, true)"> Ajouter</button>
+      </div>
+
+
+    </div>
+  </div>
+  <div *ngIf="isValidate" class="row p-5 m-5 ">
+    <div class="row justify-content-center">
+      <div class="col-2">
+        <mat-icon class="valid ">check_circle_outline</mat-icon>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-10">
+        <div class="row fs-3 text-center mt-5"><p> Application ajouté avec succès !</p></div>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-6">
+        <div class="row p-5 m-5">
+          <button mat-raised-button color="primary" (click) ="redirection()"> Retour a la page d'accueil</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

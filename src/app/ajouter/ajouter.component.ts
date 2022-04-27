@@ -3,6 +3,7 @@ import {AjouterData} from "../../service/api/ajouter.data";
 import {IApplication} from "../../modeleInterface/IApplication";
 import {FormControl} from "@angular/forms";
 import {MatStepper} from "@angular/material/stepper";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-ajouter',
@@ -19,21 +20,24 @@ export class AjouterComponent implements OnInit {
 
 
 
-  public url : string;
+  public url : string ;
   public isInsert : boolean;
   public isError : boolean = false;
   public data : any;
   public isNameChange : boolean = false;
   public nomApplication : string = 'undefined';
   public isConfirmed : boolean = false;
+  public isTesturlShow : boolean =true;
+  public isInformationApp : boolean =false;
+  public isValidate: boolean = false;
 
 
 
 
 
-  constructor(private ajouterApp: AjouterData) {
+  constructor(private ajouterApp: AjouterData, private router: Router) {
     this.isInsert = false;
-    this.url = "";
+    this.url = 'https://play.google.com/store/apps/details?id=com.supercell.clashofclans&hl=fr&gl=US';
   }
 
   ngOnInit(): void {
@@ -58,7 +62,16 @@ export class AjouterComponent implements OnInit {
     const url = "http://localhost/test/public/api/application/";
     console.log(ajouter);
     this.ajouterApp.postApplication(url, ajouter).subscribe({
-      next : value => {this.data = value, stepper.next();},
+      next : value => {this.data = value
+
+        this.isTesturlShow = false
+        this.isInformationApp = true
+        if(isInsert){
+          this.isInformationApp = false
+          this.isConfirmed = false
+          this.isValidate = true
+        }
+        stepper.next();},
       //si erreur on passe pas dans next et dans complete
       error : err => {this.isError = true, this.data=undefined} ,
       complete : () => console.log('Done')
@@ -74,12 +87,19 @@ export class AjouterComponent implements OnInit {
     this.isNameChange = value
   }
 
-  confirmation() {
+  confirmation(stepper : MatStepper) {
+    this.isInformationApp = false;
     this.isConfirmed =true;
+    stepper.next()
   }
 
   retry() {
     this.isError = false;
+  }
+
+
+  redirection() {
+    this.router.navigateByUrl('/home');
   }
 }
 

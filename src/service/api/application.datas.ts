@@ -28,4 +28,8 @@ export class ApplicationDatas {
     return this.http.get<IApplication>(url, httpOptions)
   }
 
+  public put(url : string, param : IApplication){
+    return this.http.put<IApplication>(url, param, httpOptions)
+  }
+
 }

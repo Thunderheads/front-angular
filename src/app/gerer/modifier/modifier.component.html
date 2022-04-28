@@ -1,49 +1,61 @@
-<div class="row">
-  <p> Modifier les informations</p>
+<div class="row mt-5 fs-3 justify-content-center ">
+  <p class="col-4"> Modifier les informations</p>
 </div>
 
-<div *ngIf="application !== undefined">
-  <div class="row">
-    <div class="row">
-      <div class="col-6"><label>Nom de l'application</label></div>
-      <div class="col-6">
-        <mat-form-field appearance="fill">
-          <mat-label>url :</mat-label>
-          <input matInput value="{{ application.nom }}">
-        </mat-form-field>
+<div class="h-75 d-flex align-items-center justify-content-center">
+  <div *ngIf="application !== undefined">
+    <div class="row ">
+      <div class="row align-items-center">
+        <div class="row d-flex align-items-center justify-content-center">
+          <div class="col-2 mx-2">
+            <label class="fs-5">Nom de l'application : </label>
+          </div>
+          <div class="col-2">
+            <mat-form-field appearance="fill">
+              <mat-label>Nom :</mat-label>
+              <input matInput [(ngModel)]="application.nom" value="{{ application.nom }}">
+            </mat-form-field>
+          </div>
+          <div class="col-2">
+          </div>
+        </div>
       </div>
-      <div class="row" *ngFor="let source of application.sources ">
-        <div class="col-4"><label>URL {{source.os.nom}}</label></div>
-        <div class="col-4">
+      <div class="row d-flex justify-content-center" *ngFor="let source of application.sources ">
+        <div class="col-2 d-flex align-items-center">
+          <label class="fs-5">
+            URL {{source.os.nom}} :
+          </label>
+        </div>
+        <div class="col-2">
           <mat-form-field appearance="fill">
             <mat-label>url :</mat-label>
-            <input matInput value="{{source.url}}" class="{{source.os.nom}}">
+            <input matInput [(ngModel)]="source.url" value="{{source.url}}" class="{{source.os.nom}}">
           </mat-form-field>
         </div>
-
-        <div *ngIf="source.os.nom === 'android'" class="col-4">
-
+        <div *ngIf="source.os.nom === 'android'" class="col-2 d-flex justify-content-center ">
           <button mat-fab color="primary" class="{{source.os.nom}}" (click)="checkData('android')">
             <mat-icon>add</mat-icon>
           </button>
         </div>
-        <div *ngIf="source.os.nom === 'iOS' " class="col-4">
-
+        <div *ngIf="source.os.nom === 'iOS' " class="col-2 d-flex justify-content-center ">
           <button mat-fab color="primary" class="{{source.os.nom}}" (click)="checkData('iOS')">
             <mat-icon>add</mat-icon>
           </button>
-
         </div>
 
       </div>
-      <div class="row">
+
+
+      <div class="row d-flex justify-content-center mt-5">
         <div class="col-3">
-          <button>Annuler</button>
+          <button mat-raised-button color="primary" (click)="redirection()">Annuler</button>
         </div>
         <div class="col-3">
-          <button>Valider les modifications</button>
+          <button mat-raised-button color="primary" (click)="update()">Valider les modifications</button>
         </div>
       </div>
 
     </div>
   </div>
+</div>
+

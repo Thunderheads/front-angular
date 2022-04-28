@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {IApplication} from "../../modeleInterface/IApplication";
 import {IAjouter} from "../../app/ajouter/ajouter.component";
+import {IModifier} from "../../modeleInterface/IModifier";
 
 const httpOptions = {
   headers: new HttpHeaders(
@@ -29,4 +30,10 @@ export class AjouterData{
 
     return this.http.post<IApplication>(url, param, httpOptions)
   }
+
+  public postModifierApplication(url: string, param : IAjouter): Observable<IModifier> {
+
+    return this.http.post<IModifier>(url, param, httpOptions)
+  }
+
 }

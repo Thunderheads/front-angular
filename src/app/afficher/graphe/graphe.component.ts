@@ -29,8 +29,18 @@ export class GrapheComponent implements OnInit, OnChanges  {
 
   ngOnInit(): void {
     this.currentIDApp = this.route.snapshot.paramMap.get('id')!;
+    let chartStatus = Chart.getChart("my_first_chart");
+    if (chartStatus != undefined) {
+      chartStatus.destroy();
+    }
+    let chartStatus2 = Chart.getChart("my_second_chart");
+    if (chartStatus2 != undefined) {
+      chartStatus2.destroy();
+    }
     this.chartRating = document.getElementById('my_first_chart');
     this.chartVote = document.getElementById('my_second_chart');
+
+    this.dataStorage = [];
     for (let myData of this.donnes!) {
       //si la date du jour - date collect est en dessous de 7 jours on stocke les données qu'on affichera plus tard
       if (Math.floor((new Date(Date.now()).getTime() - new Date(myData.dateCollect).getTime()) / 1000 / 60 / 60 / 24) <= 7) {

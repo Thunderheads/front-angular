@@ -1,11 +1,13 @@
-.icon {
-  font-size: 33px;
-}
+
 
 .active {
   background: white;
   color: royalblue;
   border-radius: 30px 0px 0px 30px;
+}
+
+.weight {
+  width: 290px;
 }
 
 .position-fixed{

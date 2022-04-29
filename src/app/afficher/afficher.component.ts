@@ -27,7 +27,6 @@ export class AfficherComponent implements OnInit {
     const url = 'http://localhost/test/public/api/os/' + this.currentIDApp;
     this.afficherData.get(url).subscribe(
       data => {
-
         for (let myData of data) {
 
           if(myData.nom == 'android'){
@@ -36,6 +35,7 @@ export class AfficherComponent implements OnInit {
           }
           if(myData.nom == 'iOS'){
             this.appIos = myData
+            this.app = myData
           }
         }
       });

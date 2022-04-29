@@ -32,7 +32,7 @@ export class AjouterComponent implements OnInit {
 
   constructor(private ajouterApp: AjouterData, private router: Router) {
     this.isInsert = false;
-    this.url = 'https://play.google.com/store/apps/details?id=com.supercell.clashofclans&hl=fr&gl=US';
+    this.url = '';
   }
 
   ngOnInit(): void {

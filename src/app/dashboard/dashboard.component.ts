@@ -30,9 +30,7 @@ export class DashboardComponent implements OnInit {
         for (let element of data) {
           this.datas.push(element);
         }
-        console.log(this.datas)
-      }
-      )
+      })
 
 
   }

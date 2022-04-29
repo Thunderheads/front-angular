@@ -1,23 +1,19 @@
-
 <div class="row h-100 w-100">
-  <div class="col-3">
-    <mat-toolbar color="primary" class="pt-1 ps-3 h-100 w-auto position-fixed ">
+  <div class="col-2 ">
+    <mat-toolbar color="primary"
+                 class="pt-1 ps-3 h-100 weight position-fixed ">
       <mat-toolbar-row class="mb-3 h2">
-        <div class="icon">
-          <mat-icon [inline]="true">assessment</mat-icon>
-        </div>
-        <span>Mon Application</span>
+        <span>Agrégator</span>
       </mat-toolbar-row>
 
+      <mat-toolbar-row id="home" class="active" (click)="selectedMenu('home')">
+        <div class="mx-3">
+          <mat-icon [inline]="true">home</mat-icon>
+        </div>
+        <span>Accueil</span>
+      </mat-toolbar-row>
 
-        <mat-toolbar-row id="home" class="active" (click)="selectedMenu('home')" >
-          <div class="mx-3">
-            <mat-icon [inline]="true" >home</mat-icon>
-          </div>
-          <span>Accueil</span>
-        </mat-toolbar-row>
-
-      <mat-toolbar-row id="gerer"(click)="selectedMenu('gerer')">
+      <mat-toolbar-row id="gerer" (click)="selectedMenu('gerer')">
 
         <div class="mx-3">
           <mat-icon [inline]="true">settings_applications</mat-icon>
@@ -26,7 +22,7 @@
       </mat-toolbar-row>
 
 
-      <mat-toolbar-row id="ajouter"(click)="selectedMenu('ajouter')">
+      <mat-toolbar-row id="ajouter" (click)="selectedMenu('ajouter')">
         <div class="mx-3">
           <mat-icon [inline]="true">add_circle_outline</mat-icon>
         </div>
@@ -35,7 +31,8 @@
     </mat-toolbar>
 
   </div>
-  <div class="col-9">
-    <router-outlet ></router-outlet>
+  <div class="col-10">
+    <img src="../assets/img/logo.png">
+    <router-outlet></router-outlet>
   </div>
 </div>

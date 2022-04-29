@@ -28,10 +28,14 @@ export class TableComponent implements  OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private appData : TableData, private router: Router) {
+
+  }
+  ngOnInit(): void {
     //http://localhost/test/public/api/application
     this.appData.get('http://localhost/test/public/api/application').
     subscribe(
       data => {
+        this.datas = []
         for (let element of data){
           this.datas.push(element);
         }
@@ -39,9 +43,6 @@ export class TableComponent implements  OnInit {
         this.dataSource.paginator = this.paginator;
       }
     )
-  }
-  ngOnInit(): void {
-
 
   }
 

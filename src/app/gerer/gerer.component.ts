@@ -31,7 +31,6 @@ export class GererComponent implements OnInit {
         for (let element of data) {
           this.datas.push(element);
         }
-        console.log(this.datas)
       }
     )
 

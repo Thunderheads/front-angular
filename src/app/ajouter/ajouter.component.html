@@ -2,21 +2,21 @@
 <mat-stepper [linear]="isLinear" class="mt-5" #stepper>
 
   <!-- Etape Verification URL-->
-  <mat-step>
-    <ng-template matStepLabel>Test URL</ng-template>
+  <mat-step [editable]=false>
+    <ng-template matStepLabel >Test URL</ng-template>
   </mat-step>
 
 
   <!-- Etape Verification URL-->
-  <mat-step label="Informations Applications">
+  <mat-step label="Informations Applications" [editable]=false>
   </mat-step>
 
 
-  <mat-step>
+  <mat-step [editable]=false>
     <ng-template matStepLabel>Confirmation</ng-template>
   </mat-step>
 
-  <mat-step>
+  <mat-step [editable]=false>
     <ng-template matStepLabel>Validation</ng-template>
   </mat-step>
 </mat-stepper>
@@ -52,6 +52,8 @@
       </button>
     </div>
   </div>
+
+  <!-- Etape affichage information application -->
   <div *ngIf="isInformationApp" class=" row p-5 m-5">
 
     <div class="row justify-content-around">
@@ -70,16 +72,17 @@
         <div class="col-3">
           <div class="row">
             <div class="col-3 w-auto h-auto">
-              <button mat-raised-button color="primary" (click)="changeName(true)">OUI</button>
+              <button mat-raised-button color="primary" (click)="confirmation(stepper)">NON</button>
             </div>
             <div class="col-3 w-auto h-auto">
-              <button mat-raised-button color="warn" (click)="confirmation(stepper)">NON</button>
+              <button mat-raised-button color="primary" (click)="changeName(true)">OUI</button>
             </div>
           </div>
         </div>
       </div>
-
     </div>
+
+    <!-- Cas ou l'on souhaite changer le nom de l'application -->
     <div *ngIf="isNameChange" class="row justify-content-around">
       <div class="row m-5 justify-content-center">
         <div class="col-2"><label>Nouveau nom</label></div>
@@ -93,17 +96,20 @@
       <div class="row justify-content-around">
         <div class="col-4">
           <div class="row">
-            <div class="col-3 w-auto h-auto">
-              <button mat-raised-button color="primary" (click)="confirmation(stepper)">Confirmer le nom</button>
-            </div>
+
             <div class="col-3 w-auto h-auto">
               <button mat-raised-button color="warn" (click)="changeName(false)"> Annuler</button>
+            </div>
+            <div class="col-3 w-auto h-auto">
+              <button mat-raised-button color="primary" (click)="confirmation(stepper)">Confirmer le nom</button>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- Cas ou on souhaite confirmer l'ajout de l'application -->
   <div *ngIf="isConfirmed" class="row p-5 m-5 ">
     <div class="row p-5 m-5">
 
@@ -115,7 +121,7 @@
     <div class="row justify-content-center">
 
       <div class="col-3 w-auto h-auto">
-        <button mat-raised-button color="warn" (click)="changeName(false)"> Annuler</button>
+        <button mat-raised-button color="warn" (click)="cancel(stepper)"> Annuler</button>
       </div>
       <div class="col-3 w-auto h-auto">
         <button mat-raised-button color="primary" (click)="checkData(stepper, true)"> Ajouter</button>

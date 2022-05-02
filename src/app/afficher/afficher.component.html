@@ -3,7 +3,8 @@
     <p class="fs-3 pt-5 pb-5 textBlue ">Détail application</p>
   </div>
 </div>
-<ng-container *ngIf=" appIos != undefined && appAndroid != undefined else elseBlock">
+<div *ngIf="app != undefined">
+<ng-container *ngIf=" ( appIos!.donnes.length > 0) && ( appAndroid!.donnes.length > 0)" >
   <div class="row justify-content-center mb-2">
     <div class="col-2 ">
     <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
@@ -12,6 +13,8 @@
     </mat-button-toggle-group>
     </div>
   </div>
+</ng-container>
+
   <div class="row justify-content-around">
     <div class="col-3">
       <mat-card class="pb-0">
@@ -20,7 +23,7 @@
         </div>
         <div class="row justify-content-around">
 
-          <p class="fs-5 col-6 mt-3 textBlue"><b>{{app.nom}}</b></p>
+          <p class="fs-5 col-6 mt-3 textBlue"><b>{{app.donnes[0]!.application!.nom}}</b></p>
         </div>
       </mat-card>
     </div>
@@ -65,118 +68,9 @@
       </mat-card>
     </div>
   </div>
-</ng-container>
-
-<ng-template #elseBlock>
-  <ng-container *ngIf="appIos != undefined">
-    <div class="row justify-content-around">
-      <div class="col-3">
-        <mat-card class="pb-0">
-          <div class="row">
-            <p>Application :</p>
-          </div>
-          <div class="row justify-content-around">
-
-            <p class="fs-5 col-6 mt-3 textBlue"><b>{{appIos.nom}}</b></p>
-          </div>
-        </mat-card>
-      </div>
-
-      <div class="col-3">
-        <mat-card class="pb-0">
-          <div class="row">
-            <p>Note Actuelle :</p>
-          </div>
-          <div class="row justify-content-around">
-
-            <p class="fs-5 col-5 mt-3 textBlue ">
-              <b>{{appIos.donnes[appIos.donnes.length - 1].rating}}</b>/ 5</p>
-          </div>
-        </mat-card>
-      </div>
 
 
-      <div class="col-3 pb-0">
-        <mat-card class="pb-0">
-          <div class="row">
-            <p>Avis reçus :</p>
-          </div>
-          <div class="row justify-content-around">
-
-            <p class="fs-5 col-4 mt-3 textBlue">
-              <b>{{appIos.donnes[appIos.donnes.length - 1].vote}}</b></p>
-          </div>
-        </mat-card>
-      </div>
-
-      <div class="col-3 pb-0">
-        <mat-card>
-          <div class="row">
-            <p>OS :</p>
-          </div>
-          <div class="row justify-content-center">
-
-            <mat-icon class="icon mb-2 me-5" *ngIf="appIos.nom == 'iOS'">apple</mat-icon>
-          </div>
-        </mat-card>
-      </div>
-    </div>
-  </ng-container>
-
-  <ng-container *ngIf="appAndroid != undefined">
-    <div class="row justify-content-around">
-      <div class="col-3">
-        <mat-card class="pb-0">
-          <div class="row">
-            <p>Application :</p>
-          </div>
-          <div class="row justify-content-around">
-
-            <p class="fs-5 col-6 mt-3 textBlue"><b>{{appAndroid.nom}}</b></p>
-          </div>
-        </mat-card>
-      </div>
-
-      <div class="col-3">
-        <mat-card class="pb-0">
-          <div class="row">
-            <p>Note Actuelle :</p>
-          </div>
-          <div class="row justify-content-around">
-            <p class="fs-5 col-5 mt-3 textBlue ">
-              <b>{{appAndroid.donnes[appAndroid.donnes.length - 1].rating}}</b>/ 5</p>
-          </div>
-        </mat-card>
-      </div>
-
-
-      <div class="col-3 pb-0">
-        <mat-card class="pb-0">
-          <div class="row">
-            <p>Avis reçus :</p>
-          </div>
-          <div class="row justify-content-around">
-
-            <p class="fs-5 col-4 mt-3 textBlue">
-              <b>{{appAndroid.donnes[appAndroid.donnes.length - 1].vote}}</b></p>
-          </div>
-        </mat-card>
-      </div>
-
-      <div class="col-3 pb-0">
-        <mat-card>
-          <div class="row">
-            <p>OS :</p>
-          </div>
-          <div class="row justify-content-center">
-
-            <mat-icon class="icon mb-2 me-5" *ngIf="appAndroid.nom == 'android'">android</mat-icon>
-          </div>
-        </mat-card>
-      </div>
-    </div>
-  </ng-container>
-</ng-template>
 <app-graphe
   [donnes]="app.donnes"
 ></app-graphe>
+</div>

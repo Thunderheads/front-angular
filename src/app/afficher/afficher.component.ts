@@ -4,6 +4,7 @@ import {ActivatedRoute} from "@angular/router";
 import {AfficherData} from "../../service/api/afficher.data";
 import {ISource} from "../../modeleInterface/ISource";
 import {IOS} from "../../modeleInterface/IOS";
+import {environment} from "../../environments/environment.dev";
 
 
 @Component({
@@ -14,34 +15,45 @@ import {IOS} from "../../modeleInterface/IOS";
 export class AfficherComponent implements OnInit {
   currentIDApp!: string;
 
-  public appAndroid : IOS | undefined;
-  public appIos : IOS | undefined;
+  public appAndroid : IOS | undefined ;
+  public appIos : IOS | undefined ;
   public app! : IOS;
 
   constructor(private route: ActivatedRoute, private afficherData: AfficherData) {}
 
   ngOnInit(): void {
-    //TODO : passer la liste au composant fils
+
     this.currentIDApp = this.route.snapshot.paramMap.get('id')!;
-    //http://localhost/test/public/api/os/
-    const url = 'http://localhost/test/public/api/os/' + this.currentIDApp;
+
+    const url = environment.apiGetOS + this.currentIDApp;
     this.afficherData.get(url).subscribe(
       data => {
         for (let myData of data) {
 
           if(myData.nom == 'android'){
             this.appAndroid = myData
-            this.app = myData
           }
           if(myData.nom == 'iOS'){
             this.appIos = myData
-            this.app = myData
+          }
+
+          if(this.appIos == undefined ){
+            this.app = this.appAndroid!;
+          } else {
+            if(this.appIos.donnes.length > 0){
+              this.app = this.appIos;
+            } else {
+              this.app = this.appAndroid!;
+            }
           }
         }
       });
   }
 
-
+  /**
+   * Fonction en charge de modifier la source des données en fonction du store passé en paramètre.
+   * @param app
+   */
   change(app: string) {
 
     if(app == 'android'){

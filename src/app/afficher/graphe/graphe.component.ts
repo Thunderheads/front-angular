@@ -55,7 +55,6 @@ export class GrapheComponent implements OnInit, OnChanges  {
     //pour récuperer la date du jour new Date(Date.now()).getDate()
     Chart.register(...registerables);
     this.loadChartRating();
-    Chart.register(...registerables);
     this.loadChartVote();
 
   }
@@ -208,6 +207,7 @@ export class GrapheComponent implements OnInit, OnChanges  {
       }
 
     }
+    Chart.register(...registerables);
     this.loadChartVote();
     this.loadChartRating();
   }

@@ -15,19 +15,16 @@ export class AjouterComponent implements OnInit {
   isLinear = false;
 
 
-  public url : string ;
-  public isInsert : boolean;
-  public isError : boolean = false;
-  public data : any;
-  public isNameChange : boolean = false;
-  public nomApplication : string = 'undefined';
-  public isConfirmed : boolean = false;
-  public isTesturlShow : boolean =true;
-  public isInformationApp : boolean =false;
+  public url: string;
+  public isInsert: boolean;
+  public isError: boolean = false;
+  public data: any;
+  public isNameChange: boolean = false;
+  public nomApplication: string = 'undefined';
+  public isConfirmed: boolean = false;
+  public isTesturlShow: boolean = true;
+  public isInformationApp: boolean = false;
   public isValidate: boolean = false;
-
-
-
 
 
   constructor(private ajouterApp: AjouterData, private router: Router) {
@@ -44,53 +41,70 @@ export class AjouterComponent implements OnInit {
    * Fonction en charge de lancer l'appel a l'api pour tester l'url
    *
    */
-  checkData(stepper : MatStepper, isInsert? : boolean ) {
-    let ajouter : IAjouter = {
+  checkData(stepper: MatStepper, isInsert?: boolean) {
+    let ajouter: IAjouter = {
       urlATester: this.url,
       isInsert: this.isInsert,
-      nomApplication : this.nomApplication
+      nomApplication: this.nomApplication
     };
-    if(isInsert){
+    if (isInsert) {
       ajouter.isInsert = true;
     }
 
     const url = "http://localhost/test/public/api/application/";
     console.log(ajouter);
     this.ajouterApp.postApplication(url, ajouter).subscribe({
-      next : value => {this.data = value
+        next: value => {
+          this.data = value
 
-        this.isTesturlShow = false
-        this.isInformationApp = true
-        if(isInsert){
-          this.isInformationApp = false
-          this.isConfirmed = false
-          this.isValidate = true
-        }
-        stepper.next();},
-      //si erreur on passe pas dans next et dans complete
-      error : err => {this.isError = true , this.isTesturlShow = false , this.data=undefined} ,
-      complete : () => console.log('Done')
+          this.isTesturlShow = false
+          this.isInformationApp = true
+          if (isInsert) {
+            this.isInformationApp = false
+            this.isConfirmed = false
+            this.isValidate = true
+          }
+          stepper.next();
+        },
+        //si erreur on passe pas dans next et dans complete
+        error: err => {
+          this.isError = true , this.isTesturlShow = false , this.data = undefined
+        },
+        complete: () => console.log('Done')
       }
     )
 
 
-
   }
 
 
-  changeName(value : boolean) {
-    this.isNameChange = value
+  changeName(value: boolean) {
+    this.isNameChange = value;
+
   }
 
-  confirmation(stepper : MatStepper) {
+  confirmation(stepper: MatStepper) {
     this.isInformationApp = false;
-    this.isConfirmed =true;
+    this.isConfirmed = true;
     stepper.next()
   }
 
   retry() {
     this.isError = false;
     this.isTesturlShow = true;
+
+  }
+
+  cancel(stepper: MatStepper) {
+
+    this.isError = false;
+    this.isNameChange = false;
+    this.nomApplication = 'undefined';
+    this.isConfirmed = false;
+    this.isTesturlShow = true;
+    this.isInformationApp = false;
+    this.isValidate = false;
+    stepper.reset();
 
   }
 
@@ -104,5 +118,5 @@ export interface IAjouter {
 
   urlATester: string,
   isInsert: boolean,
-  nomApplication : string ,
+  nomApplication: string,
 }

@@ -5,6 +5,7 @@ import {IApplication} from "../../modeleInterface/IApplication";
 import {Router} from "@angular/router";
 import {DatasData} from "../../service/api/datas.data";
 import {ApplicationDatas} from "../../service/api/application.datas";
+import {environment} from "../../environments/environment.dev";
 
 @Component({
   selector: 'app-gerer',
@@ -26,7 +27,7 @@ export class GererComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.appData.get('http://localhost/test/public/api/application/name').subscribe(
+    this.appData.get( environment.apiAppGetName).subscribe(
       data => {
         for (let element of data) {
           this.datas.push(element);

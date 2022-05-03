@@ -7,6 +7,7 @@ import {IHomePage} from "../../../modeleInterface/IHomePage";
 import {Router} from "@angular/router";
 import {IData} from "../../../modeleInterface/IData";
 import {isEmpty} from "rxjs";
+import {environment} from "../../../environments/environment.dev";
 
 /**
  * @title Table with pagination
@@ -32,7 +33,7 @@ export class TableComponent implements  OnInit {
   }
   ngOnInit(): void {
     //http://localhost/test/public/api/application
-    this.appData.get('http://localhost/test/public/api/application').
+    this.appData.get(environment.apiGetAllApp).
     subscribe(
       data => {
         this.datas = []
@@ -52,7 +53,7 @@ export class TableComponent implements  OnInit {
 
   ngOnChanges(changes: SimpleChanges): void {
 
-    let url = 'http://localhost/test/public/api/application/param'
+    let url = environment.apiGetAppByParam;
     if(this.donnes !== undefined && this.donnes2 !== undefined){
       url = url  +'?id='+ this.donnes + '&ordre=' +this.donnes2;
     } else {

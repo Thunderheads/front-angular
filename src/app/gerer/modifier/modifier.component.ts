@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {MatStepper} from "@angular/material/stepper";
 import {IAjouter} from "../../ajouter/ajouter.component";
 import {AjouterData} from "../../../service/api/ajouter.data";
+import {environment} from "../../../environments/environment.dev";
 
 @Component({
   selector: 'app-modifier',
@@ -26,11 +27,10 @@ export class ModifierComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentIDApp = this.route.snapshot.paramMap.get('id')!;
-    const url = "http://localhost/test/public/api/application/" + this.currentIDApp;
+    const url = environment.apiApp + this.currentIDApp;
     this.appData.get(url).subscribe(
       data =>{
         this.application = data;
-        console.log(this.application)
       }
     )
 
@@ -49,8 +49,7 @@ export class ModifierComponent implements OnInit {
           isInsert: false,
           nomApplication : this.application.nom!
         };
-        const url = "http://localhost/test/public/api/application/";
-        console.log(ajouter);
+        const url = environment.apiApp;
 
         this.ajouterApp.postModifierApplication(url, ajouter).subscribe({
             next : value => {
@@ -81,11 +80,10 @@ export class ModifierComponent implements OnInit {
    * Fonction en charge de faire une demande de mise à jour
    */
   update() {
-    const url = "http://localhost/test/public/api/application"
-    console.log( this.application)
+    const url = environment.apiApp
     this.appData.put(url, this.application).subscribe( {
         next : value => { this.router.navigateByUrl('/home') },
-        error : err => {console.log('ca marche pas')} ,
+        error : err => {} ,
         complete : () => console.log('Done')
     })
   }

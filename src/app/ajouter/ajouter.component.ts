@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {AjouterData} from "../../service/api/ajouter.data";
 import {MatStepper} from "@angular/material/stepper";
 import {Router} from "@angular/router";
+import {environment} from "../../environments/environment.dev";
+
+
 
 @Component({
   selector: 'app-ajouter',
@@ -51,7 +54,7 @@ export class AjouterComponent implements OnInit {
       ajouter.isInsert = true;
     }
 
-    const url = "http://localhost/test/public/api/application/";
+    const url = environment.apiPostApplication;
     console.log(ajouter);
     this.ajouterApp.postApplication(url, ajouter).subscribe({
         next: value => {

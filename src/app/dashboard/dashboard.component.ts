@@ -4,6 +4,7 @@ import {IApplication} from "../../modeleInterface/IApplication";
 import {Router} from "@angular/router";
 import {DatasData} from "../../service/api/datas.data";
 import {ApplicationDatas} from "../../service/api/application.datas";
+import {environment} from "../../environments/environment.dev";
 
 @Component({
   selector: 'app-dashboard',
@@ -25,7 +26,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.appData.get('http://localhost/test/public/api/application/name').subscribe(
+    this.appData.get(environment.apiGetAppName).subscribe(
       data => {
         for (let element of data) {
           this.datas.push(element);
